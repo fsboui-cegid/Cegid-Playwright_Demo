@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../JavaScripts-Test"
+		},
+		{
+			"path": "../playwright_Javascript_v1.0-main"
+		}
+	]
+}
