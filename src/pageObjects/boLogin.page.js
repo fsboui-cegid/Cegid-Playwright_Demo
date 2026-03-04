@@ -4,10 +4,9 @@ class boLoginPage {
     this.password = "//input[@id='login-pwd']";
     this.loginButton = "//input[@id='login-submit']";
   }
-  /* Here explicit waits have been used to take the screenshot properly! */
+
   async launchURL() {
     await page.goto(baseURL);
-    // await page.waitForTimeout(10000);
   }
   async loginProcess(username, password) {
     await page.locator(this.userName).type(username);

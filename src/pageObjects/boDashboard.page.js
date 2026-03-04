@@ -9,7 +9,7 @@ class boDashboard {
     this.educationMenu = "//ul[@class='oxd-dropdown-menu']/li[2]";
     this.recordsDisplay = "//div[contains(@class,'orangehrm-horizontal-padding')]/span";
     this.adminUserManagementHeader = "//span[contains(@class,'oxd-topbar-header-breadcrumb')]";
-    this.openMenuButton = "//button[@title='Recrutement - Open menu']";
+    this.openMenuButton = "//button[@title='Recruiting - Open menu']";
   }
   async dashboardPAgeValidation() {
     console.log('Logo must be visible on dashboard page');
@@ -19,18 +19,17 @@ class boDashboard {
   async openMenu() {
     await page.locator(this.openMenuButton).click();
     console.log('the menu is opened');
-    await page.waitForTimeout(2000);
   }
 
   async checkAllMenuOptions() {
     const expectedMenuOptions = [
-      'Accueil',
-      'Créer',
-      'D.A.R.',
-      'Offres',
-      'Candidats',
-      'Statistiques',
-      'Modèles',
+      'Home',
+      'Create',
+      'Vacancy requests',
+      'Vacancies',
+      'Candidates',
+      'Statistics',
+      'Templates',
       'Administration'
     ];
 

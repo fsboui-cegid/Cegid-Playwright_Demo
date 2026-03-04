@@ -54,9 +54,12 @@ AfterAll(async function () {
 Before(async function () {
   console.log(`Default timeout is set as: ${process.env.DEFAULT_TIMEOUT} ms`);
   console.log('Create new context and page');
+
   global.context = await browser.newContext({
-    viewport: null
+    viewport: null,
+    permissions: ['local-network-access']
   });
+
   global.page = await context.newPage();
 });
 

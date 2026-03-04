@@ -4,7 +4,7 @@ const { boDashboard } = require('../pageObjects/boDashboard.page');
 const dashBoardPage = new boDashboard();
 const loginBoPage = new boLoginPage();
 
-Given('I launch BO url', async () => {
+Given('I launch BO url', { timeout: 30000 }, async () => {
   await loginBoPage.launchURL();
 });
 When('I provide {string} and {string} and click on login button', async (username, password) => {
@@ -13,7 +13,7 @@ When('I provide {string} and {string} and click on login button', async (usernam
 Then('I should be connected to Backoffice dashboard page', async () => {
   await dashBoardPage.dashboardPAgeValidation();
 });
-Then('I open the menu', async () => {
+Then('I open the menu', { timeout: 30000 }, async () => {
   await dashBoardPage.openMenu();
 });
 Then('I validate all options are displaying', async () => {

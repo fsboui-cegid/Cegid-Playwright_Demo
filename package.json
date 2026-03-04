@@ -8,7 +8,7 @@
     "cucumberReport": "node cucumber/reporter.js",
     "lint": "eslint --ignore-path .gitignore .",
     "lint:prettier": "prettier --ignore-path .gitignore --write \"**/*.{js,json}\" && npm run lint --fix",
-    "cucumberReport1": "node cucumber/allureReporter.js",
+    "cucumberReport1": "node cucumber/allureReporter.cjs",
     "deleteScreenshots": "node src/utils/functions.js removeScreenshots"
   },
   "keywords": [],
@@ -20,11 +20,12 @@
     "cucumber-html-reporter": "^5.5.0",
     "dotenv": "^16.3.1",
     "eslint": "^8.40.0",
+    "mssql": "^12.2.0",
     "playwright": "^1.19.0",
     "prompt-sync": "^4.2.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.31.2",
+    "@playwright/test": "^1.58.2",
     "allure-cucumberjs": "^2.9.2",
     "allure-js-commons": "^2.9.2",
     "eslint-config-prettier": "^8.8.0",

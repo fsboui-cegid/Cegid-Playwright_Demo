@@ -5,5 +5,9 @@
   "editor.suggestOnTriggerCharacters": true,
   "editor.formatOnSave": true,
   "cucumber.features": ["src/features/**/*.feature"],
-  "cucumber.glue": ["src/stepDefinitions/**/*.js"]
+  "cucumber.glue": ["src/stepDefinitions/**/*.js"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "never"
+  }
 }
