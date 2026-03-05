@@ -8,7 +8,7 @@ const config = {
   server: 'sql22-w22-cd.rd.talentsoft.com',
   database: 'OAR_TRMMASTER_PREPROD_RECRUITING',
   options: {
-    encrypt: true,               // nécessaire pour certaines instances
+    encrypt: true, // nécessaire pour certaines instances
     trustServerCertificate: true // si certificat auto-signé
   }
 };
