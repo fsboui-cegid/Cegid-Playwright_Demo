@@ -17,7 +17,6 @@
   "dependencies": {
     "@cucumber/cucumber": "^7.3.2",
     "@cucumber/pretty-formatter": "^1.0.1",
-    "cucumber-html-reporter": "^5.5.0",
     "dotenv": "^16.3.1",
     "eslint": "^8.40.0",
     "mssql": "^12.2.0",
@@ -28,6 +27,7 @@
     "@playwright/test": "^1.58.2",
     "allure-cucumberjs": "^2.9.2",
     "allure-js-commons": "^2.9.2",
+    "cucumber-html-reporter": "^7.2.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "2.8.8"
