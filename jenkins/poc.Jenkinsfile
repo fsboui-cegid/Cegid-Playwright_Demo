@@ -4,7 +4,7 @@ pipeline {
 
   environment {
     LT_TUNNEL_BIN = "C:\\projects\\Cegid-Playwright_Demo\\LT.exe"
-    LT_CREDENTIALS_ID = "lambdatest-userpass"
+    LT_CREDENTIALS_ID = "0b5241c2-00eb-473d-b07c-a5aa89e89f0b"
   }
 
   parameters {
