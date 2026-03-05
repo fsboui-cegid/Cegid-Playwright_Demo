@@ -72,25 +72,32 @@ pipeline {
     }
   }
 
-  post {
+    post {
     always {
-      script {
+        script {
+        // 1) Stop tunnel (ne doit jamais faire échouer le build)
         if (params.LT_TUNNEL) {
-          bat """
-            echo Stopping LambdaTest Tunnel...
-            taskkill /F /IM LT.exe 2>NUL
-            taskkill /F /IM LTClient.exe 2>NUL
-          """
+            catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+            bat """
+                echo Stopping LambdaTest Tunnel...
+                taskkill /F /IM LT.exe || exit /b 0
+                taskkill /F /IM LTClient.exe || exit /b 0
+            """
+            }
         }
 
-        // Si tu n’as pas encore installé cucumber-html-reporter, commente temporairement :
-        // bat 'npm run cucumberReport'
-        bat 'npm run cucumberReport'
+        // 2) Report (ne doit pas casser le build)
+        catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+            bat 'npm run cucumberReport'
+        }
 
-        archiveArtifacts artifacts: 'reports/cucumberReports/*.html', fingerprint: true
-        archiveArtifacts artifacts: 'reports/cucumberScreenshots/*.png', fingerprint: true
-        archiveArtifacts artifacts: 'reports/cucumber/*.json', fingerprint: true
-      }
+        // 3) Archive artifacts (si fichiers absents, ça ne casse pas)
+        catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+            archiveArtifacts artifacts: 'reports/cucumberReports/*.html', fingerprint: true, allowEmptyArchive: true
+            archiveArtifacts artifacts: 'reports/cucumberScreenshots/*.png', fingerprint: true, allowEmptyArchive: true
+            archiveArtifacts artifacts: 'reports/cucumber/*.json', fingerprint: true, allowEmptyArchive: true
+        }
+        }
     }
-  }
+    }
 }
