@@ -79,10 +79,13 @@ pipeline {
             script {
             if (params.LT_TUNNEL) {
                 bat """
-                taskkill /F /IM LT.exe 2>NUL
-                taskkill /F /IM LTClient.exe 2>NUL
+                echo Stopping LambdaTest Tunnel...
+                taskkill /F /IM LT.exe 2>NUL || exit /b 0
+                taskkill /F /IM LTClient.exe 2>NUL || exit /b 0
                 """
             }
+
+            // (optionnel) archive ce que tu veux, sans faire échouer si vide
             archiveArtifacts artifacts: 'reports/cucumberScreenshots/*.png', fingerprint: true, allowEmptyArchive: true
             archiveArtifacts artifacts: 'cucumber/*.json', fingerprint: true, allowEmptyArchive: true
             }
