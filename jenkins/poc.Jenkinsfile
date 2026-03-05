@@ -75,31 +75,17 @@ pipeline {
   }
 
     post {
-    always {
-        script {
-        // 1) Stop tunnel (ne doit jamais faire échouer le build)
-        if (params.LT_TUNNEL) {
-            catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-            bat """
-                echo Stopping LambdaTest Tunnel...
-                taskkill /F /IM LT.exe || exit /b 0
-                taskkill /F /IM LTClient.exe || exit /b 0
-            """
+        always {
+            script {
+            if (params.LT_TUNNEL) {
+                bat """
+                taskkill /F /IM LT.exe 2>NUL
+                taskkill /F /IM LTClient.exe 2>NUL
+                """
+            }
+            archiveArtifacts artifacts: 'reports/cucumberScreenshots/*.png', fingerprint: true, allowEmptyArchive: true
+            archiveArtifacts artifacts: 'cucumber/*.json', fingerprint: true, allowEmptyArchive: true
             }
         }
-
-        // 2) Report (ne doit pas casser le build)
-        catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-        bat 'npm run cucumberReport'
-        }
-
-        // 3) Archive artifacts (si fichiers absents, ça ne casse pas)
-        catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-            archiveArtifacts artifacts: 'reports/cucumberReports/*.html', fingerprint: true, allowEmptyArchive: true
-            archiveArtifacts artifacts: 'reports/cucumberScreenshots/*.png', fingerprint: true, allowEmptyArchive: true
-            archiveArtifacts artifacts: 'reports/cucumber/*.json', fingerprint: true, allowEmptyArchive: true
-        }
-        }
-    }
     }
 }
