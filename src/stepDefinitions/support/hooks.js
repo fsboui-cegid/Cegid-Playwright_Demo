@@ -45,7 +45,8 @@ BeforeAll(async function () {
   }
 
   const isLambdaTest = (process.env.LT_RUN || '').toLowerCase() === 'true';
-
+  console.log('LT_USERNAME set:', !!process.env.LT_USERNAME);
+  console.log('LT_ACCESS_KEY set:', !!process.env.LT_ACCESS_KEY);
   // 2) ✅ mode LambdaTest (connect)
   if (isLambdaTest) {
     const capabilities = {

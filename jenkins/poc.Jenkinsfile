@@ -61,11 +61,24 @@ pipeline {
               set LT_RUN=true
               set LT_USERNAME=%LT_USERNAME%
               set LT_ACCESS_KEY=%LT_ACCESS_KEY%
+              node -e "const { chromium } = require('playwright'); (async()=>{ const caps={browserName:'Chrome',browserVersion:'latest','LT:Options':{platform:'Windows 10',build:'Jenkins Smoke',name:'LT connect smoke',user:process.env.LT_USERNAME,accessKey:process.env.LT_ACCESS_KEY,network:true,video:true,console:true}}; const ws='wss://cdp.lambdatest.com/playwright?capabilities='+encodeURIComponent(JSON.stringify(caps)); const b=await chromium.connect(ws); const p=await (await b.newContext()).newPage(); await p.goto('https://example.com'); await p.waitForTimeout(3000); await b.close(); console.log('LT smoke done'); })().catch(e=>{ console.error(e); process.exit(1); });"
               set LT_TUNNEL=${params.LT_TUNNEL}
               set LT_TUNNEL_NAME=cegid-%BRANCH_NAME%
 
-              npm ci
               npx playwright install
+
+
+              echo === DEBUG ===
+echo LT_RUN=%LT_RUN%
+echo LT_USERNAME_SET=%LT_USERNAME:~0,2%**
+echo LT_ACCESS_KEY_SET=****
+echo CUCUMBER_FILTER_TAGS=%CUCUMBER_FILTER_TAGS%
+echo TEST_ENVIRONMENT=%TEST_ENVIRONMENT%
+echo PLAYWRIGHT_BROWSER=%PLAYWRIGHT_BROWSER%
+echo =============
+
+
+
               npm run cucumberTest
             """
           }
