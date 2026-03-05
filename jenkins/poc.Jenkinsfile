@@ -55,7 +55,9 @@ pipeline {
               set CUCUMBER_FILTER_TAGS=${params.CUCUMBER_TAGS}
               set TEST_ENVIRONMENT=${params.APPLICATION_ENV}
               set PLAYWRIGHT_BROWSER=${params.BROWSER_SELECTION}
-
+              set NODE_ENV=
+              set npm_config_production=false
+              npm ci --include=dev
               set LT_RUN=true
               set LT_USERNAME=%LT_USERNAME%
               set LT_ACCESS_KEY=%LT_ACCESS_KEY%
@@ -88,7 +90,7 @@ pipeline {
 
         // 2) Report (ne doit pas casser le build)
         catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
-            bat 'npm run cucumberReport'
+        bat 'npm run cucumberReport'
         }
 
         // 3) Archive artifacts (si fichiers absents, ça ne casse pas)
